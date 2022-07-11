@@ -7,86 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <meta name="author" content="Matthew Lawhorn">
-  <meta name="description" content="This application was made for the Third Weekly Challenge for the 2022-Summer-to-Winter part-time UT Austin Bootcamp by Matty. With it, you should be able to create an arbitrary password made with random elements.">
+  <meta name="description" content="This application was made for the Forth Weekly Challenge for the 2022-Summer-to-Winter part-time UT Austin Bootcamp by Matty. This is a test of my abilities in HTML, CSS, and Javascript. With this results of this test, you can take a timed quiz that tracks your highscore.">
 
-  <title>Matty's PassGen</title>
+  <title>Code Quiz</title>
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <link rel="icon" href="./assets/images/lock_yellow.ico" type="image/x-icon">
+  <link rel="icon" href="./assets/images/quiz.ico" type="image/x-icon">
 </head>
 
 <body>
-
-    <div class="wrapper">
-
-      <header>
-        <h1>💽 Password Generator! 🔒</h1>
-      </header>
-
-      <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
-        </div>
-
-        <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
-        </div>
-
-        <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
-        </div>
-
-        <div class="pass-options">
-
-          <div id="optionsHeader">  
-            <h2>Options:</h2>
-            <input type="checkbox" id="useDfltOption" checked>
-            <label for="useDfltOption">Default Style</label>
-            <input type="checkbox" id="useXKCDOption">
-            <label for="useXKCDOption">XKCD Style</label>
-          </div>
-
-          <div id="defaultOptions">
-            <form>
-              <input type="checkbox" id="useLwrcase">
-              <label for="useLwrcase"> Use Lowercase Characters</label><br><br>
-              <input type="checkbox" id="useUprcase">
-              <label for="useUprcase"> Use Uppercase Characters</label><br><br>
-              <input type="checkbox" id="useNumbers">
-              <label for="useNumbers"> Use Number Characters</label><br><br>
-              <input type="checkbox" id="useSpecials">
-              <label for="useSpecials"> Use Special Characters</label><br><br>
-            </form>
-            <p>Number of characters in password:</p>
-            <div class="slidecontainer">
-              <input type="range" min="8" max="128" value="10" class="slider" id="passLengthSlider">
-              <input type="number" value="10" id="passLengthText" class="sliderTextBox"></input>
-            </div>
-          </div>
-
-          <div id="xkcdOptions">
-            <div class="slidecontainer">
-              <label for="wordpassLengthSlider" class="sliderLabel">Number of words in password</label>
-              <input type="range" min="1" max="8" value="3" class="slider" id="wordpassLengthSlider">
-              <input type="number" value="3" id="wordpassLengthText" class="sliderTextBox"></input>
-            </div>
-
-            <div class="slidecontainer">
-              <label for="wordpassLengthSlider" class="sliderLabel">Quantity of numbers at end</label>
-              <input type="range" min="0" max="4" value="3" class="slider" id="numbpassLengthSlider">
-              <input type="number" value="3" id="numbpassLengthText" class="sliderTextBox"></input>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      
-    </div>
-
 
     <script src="./libs/main.js" type="module"></script>
 

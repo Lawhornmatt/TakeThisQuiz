@@ -1,21 +1,20 @@
 ## WELCOME:
-This is the README.md for the Challenge THREE "Password Generator" for the UT Coding Bootcamp.
+This is the README.md for the Challenge Four "Quiz API" for the UT Coding Bootcamp.
 
-This is a website featuring javascript enabling you to generate a random password.
+This is a from-scratch website that lets you take a timed quiz.
+
+
 I plan on the following options:
 
-* Choose from two different password styles (random characters OR XKCD style taken from below comic)
-* Variable password length
+* I want to implement a modular design, utilizing object-orientated structure, that loads in and "builds" the quiz
+* Have a base "quiz" object that loads a "main screen" quiz by default with a single page and hidden timer. Each "answer" will instead be a different quiz in storage that can be loaded in.
 
-<img src="./assets/images/XKCD936.png" alt="A silly comic about passwords" width="550"/>
-
-<a href="https://xkcd.com/license.html" target="_blank">License to use</a>
 
 ## HOW TO:
-Press the button corresponding to the style of password you want generated.
+TBD
 
 ## VISIT:
-<a href="https://lawhornmatt.github.io/Ch3_PasswordGenerator/" target="_blank">Click here to create a new arbitrary password!</a>
+No link yet
 
 ## SCREENSHOT:
 No screenshot yet
