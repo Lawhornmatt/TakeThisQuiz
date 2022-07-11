@@ -1,0 +1,191 @@
+:root {
+
+    --main-bg-clr: rgb(18, 26, 22);
+    --main-off-wht: rgb(255, 250, 240);
+    --ogheadergrey: hsl(206, 17%, 28%);
+    --ogoffwht_bluey: #e7e9eb;
+    --ogoffwht_bluerist: #c0c7cf;
+    --buttonred: hsl(360, 91%, 36%);
+    --shadowBlk: rgba(0, 0, 0, 0.15);
+    --CodeFont: 'Courier New', Courier, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--CodeFont);
+  background-color: var(--main-bg-clr);
+  color: var(--main-off-wht);
+}
+
+.wrapper {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  padding-top: 0px;
+  color: var(--main-off-wht);
+  font-weight: bolder;
+}
+
+.card {
+  background-color: var(--main-off-wht);
+  border-radius: 5px;
+  border-width: 1px;
+  box-shadow: var(--shadowBlk) 0px 2px 8px 0px;
+  color: var(--ogheadergrey);
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 30px 40px;
+}
+
+.card-header::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  background: var(--ogoffwht_bluey);
+  height: 2px;
+}
+
+.card-body {
+  min-height: 100px;
+}
+
+.card-footer {
+  text-align: center;
+}
+
+.card-footer::before {
+  content: " ";
+  display: block;
+  width: 100%;
+  background: var(--ogoffwht_bluey);
+  height: 2px;
+}
+
+.card-footer::after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.btn {
+  border: none;
+  background-color: var(--buttonred);
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+    0px;
+  color: hsl(0, 0%, 100%);
+  display: inline-block;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 16px 16px 16px 20px;
+  padding: 14px 34px;
+  text-align: center;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: default;
+  background: #c0c7cf;
+}
+
+/* Are controlling the Options container  */
+.pass-options {
+  margin: 0 90px 0 90px;
+}
+
+#optionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slidecontainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.slider {
+  width: 80%;
+  height: 20px;
+  background: var(--ogoffwht_bluerist);
+  opacity: .5;
+  transition: opacity .25s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.sliderTextBox {
+  max-width: 50px;
+}
+
+.sliderLabel {
+  font-size: small;
+  max-width: 20%;
+}
+
+.float-right {
+  float: right;
+}
+
+#password {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  display: block;
+  width: 100%;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 85px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px dashed var(--ogoffwht_bluerist);
+  border-radius: 6px;
+  resize: none;
+  overflow: hidden;
+}
+
+@media (max-width: 690px) {
+  .btn {
+    font-size: 1rem;
+    margin: 16px 0px 0px 0px;
+    padding: 10px 15px;
+  }
+
+  #password {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
