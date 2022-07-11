@@ -11,6 +11,25 @@
 ==================== */
 body {
     background-color: var(--main-bg-clr);
+    font-family: var(--mainFont);
+
+    display: grid;
+    grid-template-rows: 20fr 80fr;
+    gap: 1rem;
+
+    min-width: 98vw;
+    min-height: 97.5vh;
+    
+    max-width: 98.2vw;
+    max-height: 97.7vh;
+}
+
+header {
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -21,7 +40,54 @@ body {
 .basicWNP {
     background: var(--main-clr-wht);
     margin: 1rem;
+    /* padding: .5rem; */
+    width: auto;
+}
+
+.basicWBG {
+    background: var(--main-off-wht);
     padding: 1rem;
+    margin: .5rem .5rem 0 .5rem;
+}
+
+/* ====================
+            ID
+==================== */
+#logo {
+    max-width: 20vw;
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5rem;
+}
+
+#timerBox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5rem;
+    min-width: 15vw;
+}
+
+#quizContainer {
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: .5rem;
+}
+
+#questionBox {
+    display: flex;
+    align-items: center;
+}
+#questionBox h3 {
+    margin: 0 2rem 0 2rem;
+}
+
+#answerBox {
+    display: flex;
+    flex-direction: column;
 }
 
 /* ====================

@@ -18,21 +18,34 @@
 
     <!-- The Header, info of the over all program. Includes timer ui (and user info if this program was that extensive) -->
     <header class="basicWNP">
-      <h1>Quiz Quiver</h1>
+      <div class="basicWBG" id="logo">
+       <h1>Quiz Machine</h1>
+      </div>
+      <div class="basicWBG" id="timerBox">
+       <h1 id="timerUI">00:00</h1>
+      </div>
     </header>
 
     <!-- Main container with info pretaining to this specific quiz (e.g. quiz title, answers, etc..) -->
-    <main class="basicWNP">
-      <h2>The Quiz you're taking</h2>
-      <h3>Question #</h3>
-      <p>The Question: blah blah blah blah</p>
-      <input type="button" value="An Answer">
-    </main>
+    <main class="basicWNP" id="quizContainer">
 
-    <!-- The bottom of the page with boiler plate info like author and when created -->
-    <footer class="basicWNP">
-      <p>Matt Lawhorn | July 2022</p>
-    </footer>
+      <div  class="basicWBG" id="quizTitle">
+        <h2>The Quiz you're taking</h2>
+      </div>
+
+      <div class="basicWBG" id="questionBox">
+        <h3>Question #</h3>
+        <p>The Question: blah blah blah blah</p>
+      </div>
+
+      <div id="answerBox">
+        <div class="basicWBG" id="buttonBox">
+          <input type="button" value="##" id="Answer#">
+          <label for="Answer#">I think the answer is this</label>
+        </div>
+      </div>
+
+    </main>
 
     <script src="./libs/main.js" type="module"></script>
 
