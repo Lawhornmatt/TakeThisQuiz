@@ -90,9 +90,6 @@ function loadQuiz() {
 function loadtheQuestion(currentQuestion) {
     var currentQuestionArray = quizAsset.questions[currentQuestion];
     var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
-    
-    var currentAnswerIndex = 1;
-    var currentAnswerText = currentAnswerArray[currentAnswerIndex];
 
     questionNumber.innerHTML = currentQuestionArray[0];
     questionText.innerHTML = currentQuestionArray[1];
@@ -104,9 +101,8 @@ function loadtheQuestion(currentQuestion) {
     // answerBox.appendChild(freshBtn);
     // let i = 2;
     for (let i=1; i < currentQuestionArray[3].length; i++) {
-        makeButton(currentAnswerIndex, currentAnswerText);
-        currentAnswerIndex++;
-
+        makeButton(i, currentAnswerArray[i]);
+        
     }
 }
 
