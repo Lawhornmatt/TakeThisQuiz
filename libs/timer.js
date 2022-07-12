@@ -23,6 +23,7 @@ function displayMessage() {
 //     }, 1000); // Makes `setInterval()` method to call a function to be executed every 1000 milliseconds. Basically determines how long the app considers a second.
 //   }
 
+//Call this function to start a timer that lasts X many seconds, where X is the argument passed through the function
 export function countdown(timeAllowance) {
   var timeInterval = setInterval(function () {
       if (timeAllowance > -1) {
@@ -31,7 +32,7 @@ export function countdown(timeAllowance) {
     } else {
       timerUI.innerHTML = ' Done! ';
       clearInterval(timeInterval);
-      // displayMessage();
+      // displayMessage();  //commented out so the alert doesnt interupt me trying stuff out
     }
   }, 1000);
 }
