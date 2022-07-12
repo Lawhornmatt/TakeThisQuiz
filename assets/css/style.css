@@ -85,9 +85,18 @@ header {
     margin: 0 2rem 0 2rem;
 }
 
-#answerBox {
+/* #answerBox {
     display: flex;
     flex-direction: column;
+} */
+
+#buttonBox {
+    display: grid;
+    grid-template-columns: 10fr 90fr;
+    grid-auto-rows: 1.7rem;
+    gap: .5rem;
+    align-items: center;
+    
 }
 
 /* ====================

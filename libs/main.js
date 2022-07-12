@@ -14,15 +14,24 @@ let quizMainpage = {
 let quizCoding123 = {
     quizTitle: "Coding Quiz 1-2-3",
     quizID: "Coding Quiz",
-    timeAllowance: 10, //seconds
+    timeAllowance: 5, //seconds
     timeSubtracted: 1,
     quizInfo: "R A P I D F I R E ~~ Has 10 questions in 10 seconds!",
 
-    question1Title: "Pick any quiz:",
-    question1Answers: ["Coding Quiz"],
+    questions: [
+        ['DEBUG'],
+        [1, "1)", "What's your name?", [3, 'Thom', 'Jim', 'Matty', 'Robert'], 3], 
+        [2, "2)", "Your city?", ['San Antonio', 'Austin', 'Dallas', 'Houston'], 2]
+        [3, "3)", "Fav Color?", ['Red', 'Yellow', 'Purple', 'Blue-Green'], 4]
+    ],
 }
 
-// import * as X from "Y";
+
+
+import * as countdown from "./timer.js";
+
+// var timer = require('./timer');
+
 var quizAsset = quizCoding123;
 
 //ACCESS HTML BY DOM
@@ -34,6 +43,8 @@ var timerUI = document.getElementById("timerUI");
 var quizContainer = document.getElementById("quizContainer");
 var quizTitle = document.getElementById("quizTitle");
 var questionBox = document.getElementById("questionBox");
+var questionNumber = document.getElementById("questionNumber");
+var questionText = document.getElementById("questionText");
 var answerBox = document.getElementById("answerBox");
 var buttonBox = document.getElementById("buttonBox");
 
@@ -42,36 +53,62 @@ var buttonBox = document.getElementById("buttonBox");
 //FUNCTIONS
 
 //onload, this function changes the UI to whatever quiz 'quizAsset' is set to
+window.onload = loadQuiz();
+
+//make a button
+function makeButton(currentAnswerIndex, currentAnswerText) {
+    // let freshBtnValue = ('#'+value);
+    // let freshBtnID = ('answer'+value);
+    // let freshBtnValue = 2;
+    // let freshBtnID = 2;
+    // let labelNode = 'Jim';
+
+    let freshBtn = document.createElement('input');
+    freshBtn.type = 'button';
+    freshBtn.value = '#'+currentAnswerIndex;
+    freshBtn.id = 'answer'+currentAnswerIndex;
+
+    let freshLabel = document.createElement('label');
+    freshLabel.for = 'answer'+currentAnswerIndex;
+    freshLabel.innerHTML = currentAnswerText;
+    
+    
+    return buttonBox.appendChild(freshBtn) + buttonBox.appendChild(freshLabel);
+}
+
+//callign this loads a quiz
 function loadQuiz() {
-    quizTitle.innerHTML = quizAsset.quizTitle;
+    logo.innerHTML = quizAsset.quizTitle;
+    quizTitle.innerHTML = quizAsset.quizInfo;
+    
+    let currentQuestion = 1;
+    loadtheQuestion(currentQuestion);
 
+    countdown.countdown(quizAsset.timeAllowance);
 }
 
-//a bs function to make sure timer is functional
-function displayMessage() {
-    alert('timer is done');
+function loadtheQuestion(currentQuestion) {
+    var currentQuestionArray = quizAsset.questions[currentQuestion];
+    var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
+    
+    var currentAnswerIndex = 1;
+    var currentAnswerText = currentAnswerArray[currentAnswerIndex];
+
+    questionNumber.innerHTML = currentQuestionArray[0];
+    questionText.innerHTML = currentQuestionArray[1];
+
+    console.log(currentQuestionArray[3].length);
+
+    // let freshBtn = document.createElement('input'); //.setAttribute('type', 'button');
+    // freshBtn.type = 'button';
+    // answerBox.appendChild(freshBtn);
+    // let i = 2;
+    for (let i=1; i < currentQuestionArray[3].length; i++) {
+        makeButton(currentAnswerIndex, currentAnswerText);
+        currentAnswerIndex++;
+
+    }
 }
-
-//TIMER CODE
-function countdown() {
-
-    // var timeLeft = 5; Commented out because we're using 'timeAllowance' which I've abstracted into being part of the 'quiz object'
-    var timeInterval = setInterval(function () {
-
-        if (quizAsset.timeAllowance > 1) {
-            timerUI.innerHTML = quizAsset.timeAllowance
-            quizAsset.timeAllowance--;
-      } else {
-        // Once `timeLeft` gets to 0, set `timerUI` to DONE mssg
-        timerUI.innerHTML = ' Done! ';
-        // Use `clearInterval()` to stop the timer
-        clearInterval(timeInterval);
-        // Call the `displayMessage()` function
-        displayMessage();
-      }
-    }, 1000); // Makes `setInterval()` method to call a function to be executed every 1000 milliseconds. Basically determines how long the app considers a second.
-  }
-  
 
 
 
