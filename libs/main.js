@@ -30,13 +30,8 @@ let quizCoding123 = {
 
 import * as countdown from "./timer.js";
 
-// var timer = require('./timer');
-
-var quizAsset = quizCoding123;
 
 //ACCESS HTML BY DOM
-
-// Stuff:
 
 var logo = document.getElementById("logo");
 var timerUI = document.getElementById("timerUI");
@@ -52,10 +47,45 @@ var buttonBox = document.getElementById("buttonBox");
 
 //FUNCTIONS
 
-//onload, this function changes the UI to whatever quiz 'quizAsset' is set to
+//ON LOAD
+//this function changes the UI to whatever quiz 'quizAsset' is set to
+
+//quizAsset will initially be MainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
+var quizAsset = quizCoding123;
 window.onload = loadQuiz();
 
-//make a button
+
+//callign this loads a quiz
+function loadQuiz() {
+    //First change the page elements
+    logo.innerHTML = quizAsset.quizTitle;
+    quizTitle.innerHTML = quizAsset.quizInfo;
+    
+    //Next, load in the quiz questions
+    let currentQuestion = 1; //currently hardset to 1, we'll make it index later
+    loadtheQuestion(currentQuestion);
+
+    //Lastly, start the timer.
+    countdown.countdown(quizAsset.timeAllowance);
+}
+
+function loadtheQuestion(currentQuestion) {
+    var currentQuestionArray = quizAsset.questions[currentQuestion];
+    var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
+
+    questionNumber.innerHTML = currentQuestionArray[0];
+    questionText.innerHTML = currentQuestionArray[1];
+
+    console.log(currentQuestionArray[3].length);
+
+    for (let i=1; i < currentQuestionArray[3].length; i++) {
+        makeButton(i, currentAnswerArray[i]);
+        
+    }
+}
+
+//BUTTON
+//Iteratively creates buttons and appends them to the .buttonBox based on quiz params
 function makeButton(currentAnswerIndex, currentAnswerText) {
     // let freshBtnValue = ('#'+value);
     // let freshBtnID = ('answer'+value);
@@ -75,36 +105,5 @@ function makeButton(currentAnswerIndex, currentAnswerText) {
     
     return buttonBox.appendChild(freshBtn) + buttonBox.appendChild(freshLabel);
 }
-
-//callign this loads a quiz
-function loadQuiz() {
-    logo.innerHTML = quizAsset.quizTitle;
-    quizTitle.innerHTML = quizAsset.quizInfo;
-    
-    let currentQuestion = 1;
-    loadtheQuestion(currentQuestion);
-
-    countdown.countdown(quizAsset.timeAllowance);
-}
-
-function loadtheQuestion(currentQuestion) {
-    var currentQuestionArray = quizAsset.questions[currentQuestion];
-    var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
-
-    questionNumber.innerHTML = currentQuestionArray[0];
-    questionText.innerHTML = currentQuestionArray[1];
-
-    console.log(currentQuestionArray[3].length);
-
-    // let freshBtn = document.createElement('input'); //.setAttribute('type', 'button');
-    // freshBtn.type = 'button';
-    // answerBox.appendChild(freshBtn);
-    // let i = 2;
-    for (let i=1; i < currentQuestionArray[3].length; i++) {
-        makeButton(i, currentAnswerArray[i]);
-        
-    }
-}
-
 
 

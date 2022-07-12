@@ -54,7 +54,8 @@ header {
             ID
 ==================== */
 #logo {
-    max-width: 20vw;
+    /* max-width: 40vw; */
+    min-width: 20vw;
     display: flex;
     justify-content: center;
     margin-bottom: .5rem;
