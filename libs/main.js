@@ -46,6 +46,15 @@ var questionText = document.getElementById("questionText");
 var answerBox = document.getElementById("answerBox");
 var buttonBox = document.getElementById("buttonBox");
 
+//ACCESS DYNAMIC BUTTONS
+function buttonEventLoader() {
+    var button1 = document.getElementById('answer1');
+    var button2 = document.getElementById('answer2');
+    var button3 = document.getElementById('answer3');
+    var button4 = document.getElementById('answer4');
+}
+
+
 //FUNCTIONS
 
 //ON LOAD
@@ -69,9 +78,14 @@ function loadQuiz() {
     handleQuestions();
 }
 
+// var questionNumbIndex = 1;
 //QUESTION HANDLER
 //Handles cycling through the questions
 function handleQuestions() {
+
+    //First, remove the previous questions
+    infantAnnihilator(buttonBox);
+
     let currentQuestion = 1; //currently hardset to 1, we'll make it index later via the first element in the answerArray
     loadtheQuestion(currentQuestion);
 }
@@ -87,11 +101,12 @@ function loadtheQuestion(currentQuestion) {
     
     // console.log(currentQuestionArray[3].length); //Debugging
     
+    // buttonLoader(currentQuestionArray, currentAnswerArray);
     for (let i=1; i < currentQuestionArray[3].length; i++) {
         makeButton(i, currentAnswerArray[0], currentAnswerArray[i]); //the 0th element of the answerArray tells which index of the array is the correct answer
     }
-    
-    
+
+    buttonEventLoader();
 }
 
 //BUTTON
@@ -99,60 +114,42 @@ function loadtheQuestion(currentQuestion) {
 function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
     
     let freshBtn = document.createElement('input');
+
     freshBtn.type = 'button';
     freshBtn.value = '#'+currentAnswerIndex;
     freshBtn.id = 'answer'+currentAnswerIndex;
+
     if (currentAnswerIndex == correctAnswerIndex) {
         freshBtn.dataset.state = 'correct';
     } else {
         freshBtn.dataset.state = 'wrong';
     }
-    
+
+    freshBtn.addEventListener('click', function() {
+        if (freshBtn.dataset.state == 'correct') {
+            console.log('Goodjob');
+        } else {
+            console.log('How embarrassing...');
+        }
+    });
+
     let freshLabel = document.createElement('label');
-    // freshLabel.for = 'answer'+currentAnswerIndex; //Apparently doesnt work? But unnecessary when using CSS .grid
     freshLabel.innerHTML = currentAnswerText;
-    
+
     return buttonBox.appendChild(freshBtn) + buttonBox.appendChild(freshLabel);
 }
 
-//ACCESSING DYNAMIC BUTTONS 
-//must be at bottom of page so they load AFTER the button are iterated
-const button1 = document.getElementById('answer1')
-const button2 = document.getElementById('answer2')
-const button3 = document.getElementById('answer3')
-const button4 = document.getElementById('answer4')
-
-//DynButns EVENT LISTENERS
-
-button1.addEventListener('click', function() {
-    if (button1.state == 'correct') {
-        console.log('Goodjob');
-    } else {
-        console.log('How embarrassing...');
+//INFANT ANNIHILATOR
+//Removes all children from a node, src'd from here: https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+function infantAnnihilator(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
-});
+}
 
-button2.addEventListener('click', function() {
-    if (button2.state == 'correct') {
-        console.log('Goodjob');
-    } else {
-        console.log('How embarrassing...');
-    }
-});
 
-button3.addEventListener('click', function() {
-    if (button3.value == '#3') {
-        console.log('Goodjob');
-    } else {
-        console.log('How embarrassing...');
-    }
-});
 
-button4.addEventListener('click', function() {
-    if (button4.state == 'correct') {
-        console.log('Goodjob');
-    } else {
-        console.log('How embarrassing...');
-    }
-});
+
+
+
 
