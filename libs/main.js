@@ -1,102 +1,42 @@
 //INITIALIZATIONS
 
 const tstMainpage = {
-    quizTitle: "Welcome to Quiz Machine!",
+    quizTitle: "Quiz Machine",
     quizID: "LOADER",
     timeAllowance: null, //seconds
     timeSubtracted: null,
-    quizInfo: null,
-
-    question1Title: "Pick any quiz:",
-    //question1Answers: find a way to point to the id of the quizes stored in local memeory ["Coding Quiz"],
-};
-
-const tstDEBUG = {
-    quizTitle: "Yay Debug Test, woooo",
-    quizID: "MOVEON", //Keep this! Use this param for a function to tell if it needs to begin a quiz, go to end state, go to highscore table, etc
-    timeAllowance: 99, //seconds
-    timeSubtracted: 1,
-    quizInfo: "Matty has seen these questions too many times :)",
+    quizInfo: ('Welcome! Select a quiz to play'),
 
     questions: [
         ['DEBUG'],
-        [1, "1)", "Who made this quiz?", 
-        [3, 'Alowishus', 'Tchefuncte', 'Matty Lawhorn', 'Its a mystery']], 
-
-        [2, "2)", "What is the airspeed velocity of swallow?", 
-        [2, '40 MPH', 'Is it unlaiden?', '35 Km/H', '11 m/s']],
-
-        [4, "4)", "What is the color of this website background?", 
-        [3, 'Mossy Green', 'Garbage-y Blue?', 'Its ugly', 'Blue-Green']],
-
-        [5, "5)", "What are you lookin at?!", 
-        [1, 'You!', 'Nothin...', 'The timer :(', 'Im taking this quiz blindfolded']],
-
-        [6, "6)", "What is the meaning of life?", 
-        [4, 'Money', 'Coffee', '*insert users personal philosophy here*', '42']],
-
-        [7, "7)", "我是个傻男人", 
-        [2, '是的', 'what?', '去湖里跳', '你妈妈']],
-
-        [8, "8)", "How many questions are there?", 
-        [1, 'Three', 'Two', 'One']],
-
-        [9, "9)", "Whatabout now??", 
-        [6, 'One', 'Two', 'Three', 'Four', 'Five', 'Six']],
-
-        [10, "10)", "Heres a freebee for taking my quiz!", 
-        [3, '', '', 'Pick Me!', '']],
-
-        [11, "You have finished the quiz!", "Submit Highscore?", [1, 'Yes', 'No']],
-    ],
+        [1, "", "Select a quiz to play:", 
+        [1, 'Coding 1-2-3']],
+    ]
 };
 
-const tstCoding123 = {
-    quizTitle: "Coding Quiz 1-2-3",
-    quizID: "MOVEON", //Keep this! Use this param for a function to tell if it needs to begin a quiz, go to end state, go to highscore table, etc
-    timeAllowance: 20, //seconds
-    timeSubtracted: 1,
-    quizInfo: "Test your coding knowledge!",
+const tstEndgame = {
+    quizTitle: "Quiz Machine",
+    quizID: "ENDER",
+    timeAllowance: null, //seconds
+    timeSubtracted: null,
+    quizInfo: ('The quiz is over; Well done!'),
 
     questions: [
         ['DEBUG'],
-        [1, "1)", "Who made this quiz?", 
-        [3, 'Alowishus', 'Tchefuncte', 'Matty Lawhorn', 'Its a mystery']], 
-
-        [2, "2)", "What is the airspeed velocity of swallow?", 
-        [2, '40 MPH', 'Is it unlaiden?', '35 Km/H', '11 m/s']],
-
-        [4, "4)", "What is the color of this website background?", 
-        [3, 'Mossy Green', 'Garbage-y Blue?', 'Its ugly', 'Blue-Green']],
-
-        [5, "5)", "What are you lookin at?!", 
-        [1, 'You!', 'Nothin...', 'The timer :(', 'Im taking this quiz blindfolded']],
-
-        [6, "6)", "What is the meaning of life?", 
-        [4, 'Money', 'Coffee', '*insert users personal philosophy here*', '42']],
-
-        [7, "7)", "我是个傻男人", 
-        [2, '是的', 'what?', '去湖里跳', '你妈妈']],
-
-        [8, "8)", "How many questions are there?", 
-        [1, 'Three', 'Two', 'One']],
-
-        [9, "9)", "Whatabout now??", 
-        [6, 'One', 'Two', 'Three', 'Four', 'Five', 'Six']],
-
-        [10, "10)", "Heres a freebee for taking my quiz!", 
-        [3, '', '', 'Pick Me!', '']],
-
-        [11, "You have finished the quiz!", "Submit Highscore?", [1, 'Yes', 'No']],
-    ],
+        ['END', "Submit Highscore?", "", [1, 'Yes', 'No']],
+    ]
 };
 
-//IMPORTS
+// ====================
+//      IMPORTS
+// ====================
 
-//Gives access to the countdown timer code
-//My issue: import/export still works. Why cant I use require()???
-import * as countdown from "./timer.js";
+//Quiz files. All start with tst and contain all quiz data
+import * as tstCoding123File from "./tstCoding123.js";
+import * as tstDEBUGFile from "./tstDEBUG.js";
 
+//I used to have a separate file for timer and it worked until I wanted to restart it with different values. Re-extract at end of project
+// import * as countdown from "./timer.js";
 
 
 // ====================
@@ -104,10 +44,13 @@ import * as countdown from "./timer.js";
 // ====================
 
 //HTML Layout
-var logo = document.getElementById("logo");
+var logoText = document.getElementById("logoText");
+var timerBox = document.getElementById("timerBox");
 var timerUI = document.getElementById("timerUI");
 var quizContainer = document.getElementById("quizContainer");
-var quizTitle = document.getElementById("quizTitle");
+var quizTitleText = document.getElementById("quizTitleText");
+var yourScoreBox = document.getElementById("yourScoreBox");
+var scoreField = document.getElementById("scoreField");
 var questionBox = document.getElementById("questionBox");
 var questionNumber = document.getElementById("questionNumber");
 var questionText = document.getElementById("questionText");
@@ -139,7 +82,6 @@ function buttonEventLoader() {
 }
 
 
-
 // ====================
 //      FUNCTIONS
 // ====================
@@ -147,23 +89,43 @@ function buttonEventLoader() {
 //START!
 //this function changes the UI to whatever quiz 'quizAsset' is set to
 //ToDo: quizAsset will initially be tstMainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
-var quizAsset = tstDEBUG;
-var questionIndex = 1;
-window.onload = loadQuiz();
+var quizAsset = tstCoding123File.tstCoding123;
+var questionIndex;
+var lastQuestion;
+var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
+var theScore = 0;
+var workingTimeAllowance;
+window.onload = loadQuiz(quizAsset);
 
 //LOAD A QUIZ OBJECT
 //calling this loads whatever obj is set to quizAsset
-function loadQuiz() {
+function loadQuiz(quizAsset) {
     //First change the page elements
     console.log('Loading Quiz: ' + quizAsset.quizTitle);
-    logo.innerHTML = quizAsset.quizTitle;
-    quizTitle.innerHTML = quizAsset.quizInfo;
+    logoText.textContent = quizAsset.quizTitle;
+    quizTitleText.textContent = quizAsset.quizInfo;
     
-    //Next, start the timer.
-    countdown.countdown(quizAsset.timeAllowance);
-    
-    //Lastly, load in the quiz questions
-    handleQuestions(questionIndex);
+    //First, erase anything the countdown was previously set to
+    timerStop();
+    //Now, start up the countdown with the current loaded quiz timer values
+    //BUT only if we're loading a normal quiz which will have the quizID "MOVEON"
+    if (quizAsset.quizID == "MOVEON") {
+        workingTimeAllowance = quizAsset.timeAllowance;
+        countdown = setInterval(timerGo, 1000); 
+        
+        timerUI.style.visibility = "visible";
+        yourScoreBox.style.visibility = "visible";
+
+
+        questionIndex = 1;
+        lastQuestion = (quizAsset.questions.length - 1);
+        console.log('Quiz is over in '+lastQuestion+' questions');
+        handleQuestions(questionIndex);
+    }
+    if (quizAsset.quizID == "ENDER") {
+        questionIndex = 1;
+        handleQuestions(questionIndex);
+    }
 }
 
 //QUESTION HANDLER
@@ -182,22 +144,28 @@ function handleQuestions(questionIndex) {
 //Loads in an *individual* question set by the question handler
 function loadtheQuestion(questionIndex) {
 
-    console.log('...and loading fresh question from #: ' + questionIndex);
-    var currentQuestionArray = quizAsset.questions[questionIndex];
-    var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
-    
-    questionNumber.innerHTML = currentQuestionArray[1];
-    questionText.innerHTML = currentQuestionArray[2];
-    
-    // console.log(currentQuestionArray[3].length); //Debugging
-    
-    // buttonLoader(currentQuestionArray, currentAnswerArray);
-    for (let i=1; i < currentQuestionArray[3].length; i++) {
-        console.log('Made button: ' + i);
-        makeButton(i, currentAnswerArray[0], currentAnswerArray[i]); //the 0th element of the answerArray tells which index of the array is the correct answer
-    }
+    if (questionIndex > lastQuestion) {
+        timerUI.style.visibility = "hidden";
+        quizAsset = tstEndgame;
+        loadQuiz(quizAsset);
+    } else {
+        console.log('...and loading fresh question from #: ' + questionIndex);
+        var currentQuestionArray = quizAsset.questions[questionIndex];
+        var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
 
-    buttonEventLoader();
+        questionNumber.innerHTML = currentQuestionArray[1];
+        questionText.innerHTML = currentQuestionArray[2];
+
+        // console.log(currentQuestionArray[3].length); //Debugging
+
+        // buttonLoader(currentQuestionArray, currentAnswerArray);
+        for (let i=1; i < currentQuestionArray[3].length; i++) {
+            console.log('Made button: ' + i);
+            makeButton(i, currentAnswerArray[0], currentAnswerArray[i]); //the 0th element of the answerArray tells which index of the array is the correct answer
+        }
+
+        buttonEventLoader();
+    }
 }
 
 //BUTTON GENERATOR
@@ -210,18 +178,27 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
     freshBtn.value = '#'+currentAnswerIndex;
     freshBtn.id = 'answer'+currentAnswerIndex;
 
-    if (currentAnswerIndex == correctAnswerIndex) {
-        freshBtn.dataset.state = 'correct';
+    if (quizAsset.quizID == "LOADER") {
+
+            freshBtn.dataset.state = 'loader';  //So every button created by the mainscreen is 'loader'
+
     } else {
-        freshBtn.dataset.state = 'wrong';
-    }
+        if (currentAnswerIndex == correctAnswerIndex) {
+            freshBtn.dataset.state = 'correct';
+        } else {
+            freshBtn.dataset.state = 'wrong';
+        }
+    } 
 
     freshBtn.addEventListener('click', function() {
         if (freshBtn.dataset.state == 'correct') {
             console.log('Goodjob');
+            increaseScore();
             letsmoveOn();
         } else {
             console.log('How embarrassing...');
+            workingTimeAllowance--;
+            timerUI.innerHTML = workingTimeAllowance;
         }
     });
 
@@ -247,7 +224,39 @@ function letsmoveOn() {
     handleQuestions(questionIndex);
 }
 
+//DEBUG KEYS
+document.addEventListener("keydown", keydownAction);
+function keydownAction(e) {
+    if (e.key == '~') {
+        quizAsset = tstDEBUGFile.tstDEBUG;
+        loadQuiz(quizAsset);
+    }
+    if (e.key == 'P') {     //for debugging purposes
+        console.log('Stop the timer');
+        timerStop();
+        timerUI.innerHTML = ('STOPPED');
+    }
+}
 
+//TIMER STUFF
+function timerGo() {
+    if (workingTimeAllowance > -1) {
+      timerUI.innerHTML = workingTimeAllowance;
+      workingTimeAllowance--;
+    } else {
+      timerUI.innerHTML = ' Done! ';
+      clearInterval(countdown);
+    }
+}
+function timerStop() {
+    // console.log('Clearing old interval');
+    clearInterval(countdown);
+}
 
+//INCREASE YOUR SCORE
+function increaseScore() {
+    theScore++;
+    scoreField.textContent = theScore;
+}
 
 

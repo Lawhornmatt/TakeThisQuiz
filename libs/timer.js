@@ -2,27 +2,43 @@
 //      TIMER
 // ====================
 
+
+
 //Call this function to start a timer that lasts X many seconds, where X is the argument passed through the function
 export function countdown(timeAllowance) {
-  console.log('Timer on stand-by');
-  var timeInterval = setInterval(function () {
-      if (timeAllowance > -1) {
+
+    console.log('Timer on stand-by');
+    var timeInterval = setInterval(function () {
+
+        if (timeAllowance > -1) {
           timerUI.innerHTML = timeAllowance;
           timeAllowance--;
-    } else {
-      timerUI.innerHTML = ' Done! ';
-      clearInterval(timeInterval);
-      // displayMessage();  //commented out so the alert doesnt interupt me trying stuff out
-    }
-  }, 1000);
+      } else {
+          timerUI.innerHTML = ' Done! ';
+          clearInterval(timeInterval);
+          // displayMessage();  //commented out so the alert doesnt interupt me trying stuff out
+      }
+    }, 1000);
+  
 }
+
+
+
+
+// function resetTheTimer(IntervalToStop) {
+//   clearInterval(IntervalToStop);
+// }
 
 //a bs function to make sure timer is functional
 function displayMessage() {
     console.log('timer is done');
 }
 
-
+// if (isTimerGoingAlready == true) { //Combined with the on-the-nose variable to ensure only a single timer instance existing
+//   clearInterval(timeInterval);
+//   isTimerGoingAlready = false;
+//   return console.log('Previous timer still going')
+// } else 
 
 
       //BASIC TIMER CODE; I am keeping this here for easy access to notes, essentially

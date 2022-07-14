@@ -1,8 +1,10 @@
 :root {
 
     --main-bg-clr: rgb(15, 30, 25);
+    --main-brdr-light: rgb(145, 170, 165);
+    --main-brdr-dark: rgb(15, 30, 25);
     --main-off-wht: rgb(255, 245, 230);
-    --main-clr-wht: rgba(255, 245, 230, .7);
+    --main-clr-wht: rgba(255, 245, 230, .4);
     --mainFont: Helvetica, sans-serif;
 }
 
@@ -15,7 +17,7 @@ body {
 
     display: grid;
     grid-template-rows: 20fr 80fr;
-    gap: 1rem;
+    /* gap: 1rem; */
 
     min-width: 98vw;
     min-height: 97.5vh;
@@ -30,6 +32,13 @@ header {
 
     display: flex;
     justify-content: space-between;
+
+
+
+}
+
+#theHeader div {
+    margin-bottom: .5rem;
 }
 
 
@@ -39,33 +48,47 @@ header {
 /* this class gives the most basic formatting: a basic off-white background and some padding and margins */
 .basicWNP {
     background: var(--main-clr-wht);
-    margin: 1rem;
+    margin: 0rem 1rem 1rem .5rem;
     /* padding: .5rem; */
     width: auto;
+    border: groove;
+    border-left-color: var(--main-brdr-light);
+    border-top-color: var(--main-brdr-light);
+    border-right-color: var(--main-brdr-dark);
+    border-bottom-color: var(--main-brdr-dark);
 }
 
 .basicWBG {
     background: var(--main-off-wht);
     padding: 1rem;
     margin: .5rem .5rem 0 .5rem;
+    border: groove;
+    border-right-color: var(--main-brdr-light);
+    border-bottom-color: var(--main-brdr-light);
+    border-left-color: var(--main-brdr-dark);
+    border-top-color: var(--main-brdr-dark);
 }
 
 /* ====================
             ID
 ==================== */
-#logo {
+#logoBox {
     /* max-width: 40vw; */
     min-width: 20vw;
+    /* max-width: 304px;
+    max-height: 115px; */
     display: flex;
     justify-content: center;
-    margin-bottom: .5rem;
+    /* flex-wrap: nowrap; */
+    /* margin-bottom: .5rem; */
 }
 
 #timerBox {
     display: flex;
     justify-content: center;
-    margin-bottom: .5rem;
+    /* margin-bottom: .5rem; */
     min-width: 15vw;
+    /* visibility: hidden; */
 }
 
 #quizContainer {
@@ -76,6 +99,22 @@ header {
     flex-direction: column;
 
     margin-bottom: .5rem;
+}
+
+#quizTitleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#yourScoreBox {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    width: 14rem;
+    padding: 0;
+    /* display: none; */
+    visibility: hidden;
 }
 
 #questionBox {
@@ -95,7 +134,7 @@ header {
     display: grid;
     grid-template-columns: 10fr 90fr;
     grid-auto-rows: 1.7rem;
-    gap: .5rem;
+    gap: .35rem;
     align-items: center;
     
 }
