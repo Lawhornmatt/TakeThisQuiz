@@ -10,7 +10,7 @@ const tstMainpage = {
     questions: [
         ['DEBUG'],
         [1, "", "Select a quiz to play:", 
-        [1, 'Coding 1-2-3']],
+        ['NONE', 'Coding 1-2-3']],
     ]
 };
 
@@ -93,7 +93,7 @@ function buttonEventLoader() {
 //START!
 //this function changes the UI to whatever quiz 'quizAsset' is set to
 //ToDo: quizAsset will initially be tstMainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
-var quizAsset = tstCoding123File.tstCoding123;
+var quizAsset = tstMainpage;
 var questionIndex;
 var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
@@ -125,8 +125,7 @@ function loadQuiz(quizAsset) {
         lastQuestion = (quizAsset.questions.length - 1);
         console.log('Quiz is over in '+lastQuestion+' questions');
         handleQuestions(questionIndex);
-    }
-    if (quizAsset.quizID == "ENDER") {
+    } else {
         questionIndex = 1;
         handleQuestions(questionIndex);
     }
@@ -184,7 +183,7 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
 
     if (quizAsset.quizID == "LOADER") {
 
-            freshBtn.dataset.state = 'loader';  //So every button created by the mainscreen is 'loader'
+            //freshBtn.dataset.state = currentAnswerIndex;  //Thus, every mainScreen button has a dataset containing the psuedofile path to the file it ought to open
 
     } else {
         if (currentAnswerIndex == correctAnswerIndex) {
@@ -194,8 +193,12 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
         }
     } 
 
-    
-    if (quizAsset.quizID == "MOVEON") {
+    if (quizAsset.quizID == "LOADER") {
+        freshBtn.addEventListener('click', function() {
+            quizAsset = tstCoding123File.tstCoding123;
+            loadQuiz(quizAsset);
+    });
+    } else if (quizAsset.quizID == "MOVEON") {
         freshBtn.addEventListener('click', function() {
 
             if (freshBtn.dataset.state == 'correct') {
@@ -213,12 +216,12 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
             event.preventDefault();
 
             var scoreToAdd = {
-                userName: HSNAME.value,
-                userScore: theScore,
+                User_Name: HSNAME.value,
+                High_Score: theScore,
             };
             if (freshBtn.dataset.state == 'correct') {
-                localStorage.setItem((HSNAME.value+' score'), JSON.stringify(scoreToAdd));
-                quizAsset = tstCoding123File.tstCoding123;
+                localStorage.setItem((HSNAME.value+"'s score"), JSON.stringify(scoreToAdd));
+                quizAsset = tstMainpage;
                 loadQuiz(quizAsset);
         } else {
             quizAsset = tstMainpage;

@@ -5,6 +5,9 @@
     --main-brdr-dark: rgb(15, 30, 25);
     --main-off-wht: rgb(255, 245, 230);
     --main-clr-wht: rgba(255, 245, 230, .4);
+
+    --main-btn-rest: rgb(128, 100, 194);
+    --main-btn-actve: rgb(68, 35, 146);
     --mainFont: Helvetica, sans-serif;
 }
 
@@ -39,8 +42,18 @@ header {
 
 #theHeader div {
     margin-bottom: .5rem;
+    max-height: 10vh;;
 }
 
+a.nostyle:link {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+a.nostyle:visited {
+    text-decoration: inherit;
+    color: inherit;
+}
 
 /* ====================
         CLASSES 
@@ -69,6 +82,34 @@ header {
     border-top-color: var(--main-brdr-dark);
 }
 
+.bigButton {
+    background: var(--main-btn-rest);
+    padding: 1rem;
+    margin: .5rem .5rem 0 .5rem;
+    border: groove;
+    border-left-color: var(--main-brdr-light);
+    border-top-color: var(--main-brdr-light);
+    border-right-color: var(--main-brdr-dark);
+    border-bottom-color: var(--main-brdr-dark);
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.bigButton a {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.bigButton:active {
+    background: var(--main-btn-actve);
+    border-right-color: var(--main-brdr-light);
+    border-bottom-color: var(--main-brdr-light);
+    border-left-color: var(--main-brdr-dark);
+    border-top-color: var(--main-brdr-dark);
+}
+
 /* ====================
             ID
 ==================== */
@@ -79,9 +120,18 @@ header {
     max-height: 115px; */
     display: flex;
     justify-content: center;
+    align-items: center;
     /* flex-wrap: nowrap; */
     /* margin-bottom: .5rem; */
 }
+
+/* #viewHS {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
 
 #timerBox {
     display: flex;

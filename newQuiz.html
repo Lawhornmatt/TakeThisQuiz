@@ -7,9 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <meta name="author" content="Matthew Lawhorn">
-  <meta name="description" content="This application was made for the Forth Weekly Challenge for the 2022-Summer-to-Winter part-time UT Austin Bootcamp by Matty. This is a test of my abilities in HTML, CSS, and Javascript. With this results of this test, you can take a timed quiz that tracks your highscore.">
+  <meta name="description" content="Create Your Own Quiz">
 
-  <title>Code Quiz</title>
+  <title>CQ: Make Your Own!</title>
   <link rel="stylesheet" href="./assets/css/style.css" />
   <link rel="icon" href="./assets/images/quiz.ico" type="image/x-icon">
 </head>
@@ -21,14 +21,13 @@
       <div class="basicWBG" id="logoBox">
        <h1 id="logoText">#logoBox</h1>
       </div>
-      <div class="bigButton" id="viewHS">
-        <!-- Use following inside href if you want a new tab: target="_blank" -->
-       <a class="nostyle" href="./highscores.html">HIGH <br> SCORES</a>
+      <div style="visibility:hidden" class="bigButton" id="viewHS">
+        <a >HIGH <br> SCORES</a>
       </div>
       <div class="bigButton" id="userUnique">
-        <a class="nostyle" href="./newQuiz.html">Create Your Own Quiz</a>
+        <a class="nostyle" href="./index.html">Return to Quiz</a>
       </div>
-      <div class="basicWBG" id="timerBox">
+      <div style="visibility:hidden" class="basicWBG" id="timerBox">
        <h1 id="timerUI"></h1>
       </div>
     </header>
@@ -37,24 +36,24 @@
     <main class="basicWNP" id="quizContainer">
 
       <div  class="basicWBG" id="quizTitleBox">
-        <h3 id="quizTitleText">#quizTitleBox</h3>
+        <h3 id="quizTitleText">The champions!</h3>
         <div id="yourScoreBox">
-          <h3 id="scoreField">0</h3>
-          <h3>Your Score:</h1>
+          <h3 id="scoreField"></h3>
+          <h3></h1>
         </div>
       </div>
 
       <div class="basicWBG" id="questionBox">
-        <h3 id="questionNumber">#questionNumber</h3>
-        <p id="questionText">#questionText: blah blah blah blah</p>
+        <h3 id="questionNumber"></h3>
+        <p id="questionText"></p>
       </div>
 
-      <div id="answerBox">
+      <!-- <div id="answerBox">  Removed for the high score page
         <div class="basicWBG" id="buttonBox">
           <input type="button" value="##" id="Answer#">
           <label for="Answer#">I think the answer is this</label>
         </div>
-      </div>
+      </div> -->
 
     </main>
 
