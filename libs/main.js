@@ -1,37 +1,10 @@
-//INITIALIZATIONS
-
-const tstMainpage = {
-    quizTitle: "Quiz Machine",
-    quizID: "LOADER",
-    timeAllowance: null, //seconds
-    timeSubtracted: null,
-    quizInfo: ('Welcome! Select a quiz to play'),
-
-    questions: [
-        ['DEBUG'],
-        [1, "", "Select a quiz to play:", 
-        ['NONE', 'Coding 1-2-3']],
-    ]
-};
-
-const tstEndgame = {
-    quizTitle: "Quiz Machine",
-    quizID: "ENDER",
-    timeAllowance: null, //seconds
-    timeSubtracted: null,
-    quizInfo: ('The quiz is over; Well done!'),
-
-    questions: [
-        ['DEBUG'],
-        ['END', "Submit Highscore?", "<input id='HSNAME' placeholder='Enter a unique name'>", [1, 'Yes', 'No']],
-    ]
-};
-
 // ====================
 //      IMPORTS
 // ====================
 
 //Quiz files. All start with tst and contain all quiz data
+import * as tstMainpageFile from "./tstMainpage.js";
+import * as tstEndgameFile from "./tstEndgame.js";
 import * as tstCoding123File from "./tstCoding123.js";
 import * as tstDEBUGFile from "./tstDEBUG.js";
 
@@ -85,21 +58,23 @@ function buttonEventLoader() {
     }
 }
 
-
 // ====================
-//      FUNCTIONS
+//   INITIALIZATIONS
 // ====================
 
-//START!
 //this function changes the UI to whatever quiz 'quizAsset' is set to
-//ToDo: quizAsset will initially be tstMainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
-var quizAsset = tstMainpage;
+var quizAsset = tstMainpageFile.tstMainpage;
 var questionIndex;
 var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
 var theScore = 0;
 var workingTimeAllowance;
 window.onload = loadQuiz(quizAsset);
+
+
+// ====================
+//      FUNCTIONS
+// ====================
 
 //LOAD A QUIZ OBJECT
 //calling this loads whatever obj is set to quizAsset
@@ -147,9 +122,11 @@ function handleQuestions(questionIndex) {
 //Loads in an *individual* question set by the question handler
 function loadtheQuestion(questionIndex) {
 
-    if (questionIndex > lastQuestion) {
+    //MajorSect: If no more questions, launches the ENDER quiz for highscore submission
+    if (questionIndex > lastQuestion) { 
+        timerStop();
         timerUI.style.visibility = "hidden";
-        quizAsset = tstEndgame;
+        quizAsset = tstEndgameFile.tstEndgame;
         loadQuiz(quizAsset);
     } else {
         console.log('...and loading fresh question from #: ' + questionIndex);
@@ -221,11 +198,15 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
             };
             if (freshBtn.dataset.state == 'correct') {
                 localStorage.setItem((HSNAME.value+"'s score"), JSON.stringify(scoreToAdd));
-                quizAsset = tstMainpage;
+                yourScoreBox.style.visibility = "hidden";
+                theScore = 0;
+                quizAsset = tstMainpageFile.tstMainpage;
                 loadQuiz(quizAsset);
         } else {
-            quizAsset = tstMainpage;
+            quizAsset = tstMainpageFile.tstMainpage;
             loadQuiz(quizAsset);
+            yourScoreBox.style.visibility = "hidden";
+            theScore = 0;
         }
 
     });
@@ -256,11 +237,16 @@ function letsmoveOn() {
 //DEBUG KEYS
 document.addEventListener("keydown", keydownAction);
 function keydownAction(e) {
-    if (e.key == '~') {
+    if (e.altKey && e.key == '`') {     //Fire off the Debug Quiz
         quizAsset = tstDEBUGFile.tstDEBUG;
         loadQuiz(quizAsset);
     }
-    if (e.key == 'P') {     //for debugging purposes
+    if (e.altKey && e.key == 'm') {     //Jump back to Mainpage
+        console.log('Back to Mainpage');
+        quizAsset = tstMainpageFile.tstMainpage;
+        loadQuiz(quizAsset);
+    }
+    if (e.altKey && e.key == 'p') {     //Kill the timer
         console.log('Stop the timer');
         timerStop();
         timerUI.innerHTML = ('STOPPED');
@@ -269,12 +255,18 @@ function keydownAction(e) {
 
 //TIMER STUFF
 function timerGo() {
-    if (workingTimeAllowance > -1) {
-      timerUI.innerHTML = workingTimeAllowance;
-      workingTimeAllowance--;
+    if (workingTimeAllowance > 0) {
+        timerUI.innerHTML = workingTimeAllowance;
+        workingTimeAllowance--;
+    } else if (workingTimeAllowance > -1) {
+        timerUI.innerHTML = ' Done! ';
+        workingTimeAllowance--;
     } else {
-      timerUI.innerHTML = ' Done! ';
-      clearInterval(countdown);
+        timerStop();
+        timerUI.style.visibility = "hidden";
+        quizAsset = tstEndgameFile.tstEndgame;
+        loadQuiz(quizAsset);
+        clearInterval(countdown);
     }
 }
 function timerStop() {
