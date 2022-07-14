@@ -1,30 +1,95 @@
 //INITIALIZATIONS
 
-let quizMainpage = {
+const tstMainpage = {
     quizTitle: "Welcome to Quiz Machine!",
-    quizID: "mainpage",
+    quizID: "LOADER",
     timeAllowance: null, //seconds
     timeSubtracted: null,
     quizInfo: null,
 
     question1Title: "Pick any quiz:",
     //question1Answers: find a way to point to the id of the quizes stored in local memeory ["Coding Quiz"],
-}
+};
 
-let quizCoding123 = {
+const tstDEBUG = {
+    quizTitle: "Yay Debug Test, woooo",
+    quizID: "MOVEON", //Keep this! Use this param for a function to tell if it needs to begin a quiz, go to end state, go to highscore table, etc
+    timeAllowance: 99, //seconds
+    timeSubtracted: 1,
+    quizInfo: "Matty has seen these questions too many times :)",
+
+    questions: [
+        ['DEBUG'],
+        [1, "1)", "Who made this quiz?", 
+        [3, 'Alowishus', 'Tchefuncte', 'Matty Lawhorn', 'Its a mystery']], 
+
+        [2, "2)", "What is the airspeed velocity of swallow?", 
+        [2, '40 MPH', 'Is it unlaiden?', '35 Km/H', '11 m/s']],
+
+        [4, "4)", "What is the color of this website background?", 
+        [3, 'Mossy Green', 'Garbage-y Blue?', 'Its ugly', 'Blue-Green']],
+
+        [5, "5)", "What are you lookin at?!", 
+        [1, 'You!', 'Nothin...', 'The timer :(', 'Im taking this quiz blindfolded']],
+
+        [6, "6)", "What is the meaning of life?", 
+        [4, 'Money', 'Coffee', '*insert users personal philosophy here*', '42']],
+
+        [7, "7)", "我是个傻男人", 
+        [2, '是的', 'what?', '去湖里跳', '你妈妈']],
+
+        [8, "8)", "How many questions are there?", 
+        [1, 'Three', 'Two', 'One']],
+
+        [9, "9)", "Whatabout now??", 
+        [6, 'One', 'Two', 'Three', 'Four', 'Five', 'Six']],
+
+        [10, "10)", "Heres a freebee for taking my quiz!", 
+        [3, '', '', 'Pick Me!', '']],
+
+        [11, "You have finished the quiz!", "Submit Highscore?", [1, 'Yes', 'No']],
+    ],
+};
+
+const tstCoding123 = {
     quizTitle: "Coding Quiz 1-2-3",
-    quizID: "Coding Quiz", //I probably dont need this param, I'll find the selected  quiz via the object name or file name
-    timeAllowance: 5, //seconds
+    quizID: "MOVEON", //Keep this! Use this param for a function to tell if it needs to begin a quiz, go to end state, go to highscore table, etc
+    timeAllowance: 20, //seconds
     timeSubtracted: 1,
     quizInfo: "Test your coding knowledge!",
 
     questions: [
         ['DEBUG'],
-        [1, "1)", "What's your name?", [3, 'Thom', 'Jim', 'Matty', 'Robert']], 
-        [2, "2)", "Your city?", [2, 'San Antonio', 'Austin', 'Dallas', 'Houston']],
-        [3, "3)", "Fav Color?", [4, 'Red', 'Yellow', 'Purple', 'Blue-Green']],
+        [1, "1)", "Who made this quiz?", 
+        [3, 'Alowishus', 'Tchefuncte', 'Matty Lawhorn', 'Its a mystery']], 
+
+        [2, "2)", "What is the airspeed velocity of swallow?", 
+        [2, '40 MPH', 'Is it unlaiden?', '35 Km/H', '11 m/s']],
+
+        [4, "4)", "What is the color of this website background?", 
+        [3, 'Mossy Green', 'Garbage-y Blue?', 'Its ugly', 'Blue-Green']],
+
+        [5, "5)", "What are you lookin at?!", 
+        [1, 'You!', 'Nothin...', 'The timer :(', 'Im taking this quiz blindfolded']],
+
+        [6, "6)", "What is the meaning of life?", 
+        [4, 'Money', 'Coffee', '*insert users personal philosophy here*', '42']],
+
+        [7, "7)", "我是个傻男人", 
+        [2, '是的', 'what?', '去湖里跳', '你妈妈']],
+
+        [8, "8)", "How many questions are there?", 
+        [1, 'Three', 'Two', 'One']],
+
+        [9, "9)", "Whatabout now??", 
+        [6, 'One', 'Two', 'Three', 'Four', 'Five', 'Six']],
+
+        [10, "10)", "Heres a freebee for taking my quiz!", 
+        [3, '', '', 'Pick Me!', '']],
+
+        [11, "You have finished the quiz!", "Submit Highscore?", [1, 'Yes', 'No']],
     ],
-}
+};
 
 //IMPORTS
 
@@ -50,12 +115,27 @@ var answerBox = document.getElementById("answerBox");
 var buttonBox = document.getElementById("buttonBox");
 
 //Access the generated buttons made via makeButton()
+//Added if-statements so number of buttons can be determined in the tstDEBUG.questions array (up to six! I could do more but that's too extra)
 function buttonEventLoader() {
     console.log('Button# variables instanced and attached to their HTML element');
-    var button1 = document.getElementById('answer1');
-    var button2 = document.getElementById('answer2');
-    var button3 = document.getElementById('answer3');
-    var button4 = document.getElementById('answer4');
+    if (document.getElementById('answer1')) {
+        var button1 = document.getElementById('answer1');
+    }
+    if (document.getElementById('answer2')) {
+        var button2 = document.getElementById('answer2');
+    }
+    if (document.getElementById('answer3')) {
+        var button3 = document.getElementById('answer3');
+    }
+    if (document.getElementById('answer4')) {
+        var button4 = document.getElementById('answer4');
+    }
+    if (document.getElementById('answer5')) {
+        var button5 = document.getElementById('answer5');
+    }
+    if (document.getElementById('answer6')) {
+        var button6 = document.getElementById('answer6');
+    }
 }
 
 
@@ -66,8 +146,8 @@ function buttonEventLoader() {
 
 //START!
 //this function changes the UI to whatever quiz 'quizAsset' is set to
-//ToDo: quizAsset will initially be MainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
-var quizAsset = quizCoding123;
+//ToDo: quizAsset will initially be tstMainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
+var quizAsset = tstDEBUG;
 var questionIndex = 1;
 window.onload = loadQuiz();
 
