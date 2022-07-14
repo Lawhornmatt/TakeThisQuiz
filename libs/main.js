@@ -21,8 +21,8 @@ let quizCoding123 = {
     questions: [
         ['DEBUG'],
         [1, "1)", "What's your name?", [3, 'Thom', 'Jim', 'Matty', 'Robert']], 
-        [2, "2)", "Your city?", [2, 'San Antonio', 'Austin', 'Dallas', 'Houston']]
-        [3, "3)", "Fav Color?", [4, 'Red', 'Yellow', 'Purple', 'Blue-Green']]
+        [2, "2)", "Your city?", [2, 'San Antonio', 'Austin', 'Dallas', 'Houston']],
+        [3, "3)", "Fav Color?", [4, 'Red', 'Yellow', 'Purple', 'Blue-Green']],
     ],
 }
 
@@ -35,7 +35,7 @@ import * as countdown from "./timer.js";
 
 
 // ====================
-//ACCESS HTML BY DOM
+//  ACCESS HTML BY DOM
 // ====================
 
 //HTML Layout
@@ -68,6 +68,7 @@ function buttonEventLoader() {
 //this function changes the UI to whatever quiz 'quizAsset' is set to
 //ToDo: quizAsset will initially be MainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
 var quizAsset = quizCoding123;
+var questionIndex = 1;
 window.onload = loadQuiz();
 
 //LOAD A QUIZ OBJECT
@@ -82,27 +83,27 @@ function loadQuiz() {
     countdown.countdown(quizAsset.timeAllowance);
     
     //Lastly, load in the quiz questions
-    handleQuestions();
+    handleQuestions(questionIndex);
 }
 
 //QUESTION HANDLER
 //Handles cycling through the questions
-function handleQuestions() {
+function handleQuestions(questionIndex) {
 
     //First, remove the previous buttons and their labels
     console.log('Removing old questions...');
     infantAnnihilator(buttonBox);
 
-    let currentQuestion = 1; //currently hardset to 1, we'll make it index later via the first element in the answerArray
-    loadtheQuestion(currentQuestion);
+    //var currentQuestion = 1; //currently hardset to 1, we'll make it index later via the first element in the answerArray
+    loadtheQuestion(questionIndex);
 }
 
 //QUESTION LOADER
 //Loads in an *individual* question set by the question handler
-function loadtheQuestion(currentQuestion) {
+function loadtheQuestion(questionIndex) {
 
-    console.log('...and loading fresh question from #: ' + currentQuestion);
-    var currentQuestionArray = quizAsset.questions[currentQuestion];
+    console.log('...and loading fresh question from #: ' + questionIndex);
+    var currentQuestionArray = quizAsset.questions[questionIndex];
     var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
     
     questionNumber.innerHTML = currentQuestionArray[1];
@@ -138,6 +139,7 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
     freshBtn.addEventListener('click', function() {
         if (freshBtn.dataset.state == 'correct') {
             console.log('Goodjob');
+            letsmoveOn();
         } else {
             console.log('How embarrassing...');
         }
@@ -152,13 +154,18 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
 //INFANT ANNIHILATOR
 //Removes all children from a node, src'd from here: https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
 function infantAnnihilator(parent) {
-    
+
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
 
-
+//LETS MOVE ON
+//incr the questionIndex by one and call handleQuestions() so that old questions elements are deleted/written over by new
+function letsmoveOn() {
+    questionIndex++;
+    handleQuestions(questionIndex);
+}
 
 
 
