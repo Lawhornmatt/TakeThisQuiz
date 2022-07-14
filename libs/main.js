@@ -23,7 +23,7 @@ const tstEndgame = {
 
     questions: [
         ['DEBUG'],
-        ['END', "Submit Highscore?", "", [1, 'Yes', 'No']],
+        ['END', "Submit Highscore?", "<input id='HSNAME' placeholder='Enter a unique name'>", [1, 'Yes', 'No']],
     ]
 };
 
@@ -78,6 +78,10 @@ function buttonEventLoader() {
     }
     if (document.getElementById('answer6')) {
         var button6 = document.getElementById('answer6');
+    }
+    //Also loads in the input box for the Highscore page
+    if (document.getElementById('HSNAME')) {
+        var HSNAME = document.getElementById('HSNAME');
     }
 }
 
@@ -190,17 +194,39 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
         }
     } 
 
-    freshBtn.addEventListener('click', function() {
-        if (freshBtn.dataset.state == 'correct') {
-            console.log('Goodjob');
-            increaseScore();
-            letsmoveOn();
-        } else {
-            console.log('How embarrassing...');
-            workingTimeAllowance--;
-            timerUI.innerHTML = workingTimeAllowance;
-        }
+    
+    if (quizAsset.quizID == "MOVEON") {
+        freshBtn.addEventListener('click', function() {
+
+            if (freshBtn.dataset.state == 'correct') {
+                    console.log('Goodjob');
+                    increaseScore();
+                    letsmoveOn();
+            } else {
+                console.log('How embarrassing...');
+                workingTimeAllowance--;
+                timerUI.innerHTML = workingTimeAllowance;
+            }
     });
+    } else if (quizAsset.quizID == "ENDER") {
+        freshBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var scoreToAdd = {
+                userName: HSNAME.value,
+                userScore: theScore,
+            };
+            if (freshBtn.dataset.state == 'correct') {
+                localStorage.setItem((HSNAME.value+' score'), JSON.stringify(scoreToAdd));
+                quizAsset = tstCoding123File.tstCoding123;
+                loadQuiz(quizAsset);
+        } else {
+            quizAsset = tstMainpage;
+            loadQuiz(quizAsset);
+        }
+
+    });
+    }
 
     let freshLabel = document.createElement('label');
     freshLabel.innerHTML = currentAnswerText;
