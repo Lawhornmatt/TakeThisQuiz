@@ -192,12 +192,17 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
         freshBtn.addEventListener('click', function(event) {
             event.preventDefault();
 
+            var scoreID_Bad = new Date();
+            var scoreID_Good = scoreID_Bad.getDay() + ":" + scoreID_Bad.getHours() + ":" + scoreID_Bad.getMinutes() + ":" + scoreID_Bad.getSeconds();
             var scoreToAdd = {
                 User_Name: HSNAME.value,
                 High_Score: theScore,
             };
             if (freshBtn.dataset.state == 'correct') {
-                localStorage.setItem((HSNAME.value+"'s score"), JSON.stringify(scoreToAdd));
+
+                //Saves their score
+                localStorage.setItem(scoreID_Good, JSON.stringify(scoreToAdd));
+                
                 yourScoreBox.style.visibility = "hidden";
                 theScore = 0;
                 quizAsset = tstMainpageFile.tstMainpage;

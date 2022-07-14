@@ -111,7 +111,7 @@ a.nostyle:visited {
 }
 
 /* ====================
-            ID
+        ID: INDEX
 ==================== */
 #logoBox {
     /* max-width: 40vw; */
@@ -188,6 +188,18 @@ a.nostyle:visited {
     align-items: center;
     
 }
+/* ====================
+   ID: HIGHSCORE PAGE
+==================== */
+
+#highscoreBox {
+    display: grid;
+    grid-template-columns: 10fr 90fr;
+    grid-auto-rows: 2rem;
+    gap: .8rem;
+    align-items: center;
+}
+
 
 /* ====================
     ACCESSIBILITY
