@@ -33,7 +33,10 @@ let quizCoding123 = {
 import * as countdown from "./timer.js";
 
 
+
+// ====================
 //ACCESS HTML BY DOM
+// ====================
 
 //HTML Layout
 var logo = document.getElementById("logo");
@@ -46,8 +49,9 @@ var questionText = document.getElementById("questionText");
 var answerBox = document.getElementById("answerBox");
 var buttonBox = document.getElementById("buttonBox");
 
-//ACCESS DYNAMIC BUTTONS
+//Access the generated buttons made via makeButton()
 function buttonEventLoader() {
+    console.log('Button# variables instanced and attached to their HTML element');
     var button1 = document.getElementById('answer1');
     var button2 = document.getElementById('answer2');
     var button3 = document.getElementById('answer3');
@@ -55,19 +59,22 @@ function buttonEventLoader() {
 }
 
 
-//FUNCTIONS
 
-//ON LOAD
+// ====================
+//      FUNCTIONS
+// ====================
+
+//START!
 //this function changes the UI to whatever quiz 'quizAsset' is set to
-
-//quizAsset will initially be MainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
+//ToDo: quizAsset will initially be MainScreen, but clicking the apro btn will set it to the selected quiz AND fire loadQuiz()
 var quizAsset = quizCoding123;
 window.onload = loadQuiz();
 
-
+//LOAD A QUIZ OBJECT
 //calling this loads whatever obj is set to quizAsset
 function loadQuiz() {
     //First change the page elements
+    console.log('Loading Quiz: ' + quizAsset.quizTitle);
     logo.innerHTML = quizAsset.quizTitle;
     quizTitle.innerHTML = quizAsset.quizInfo;
     
@@ -78,12 +85,12 @@ function loadQuiz() {
     handleQuestions();
 }
 
-// var questionNumbIndex = 1;
 //QUESTION HANDLER
 //Handles cycling through the questions
 function handleQuestions() {
 
-    //First, remove the previous questions
+    //First, remove the previous buttons and their labels
+    console.log('Removing old questions...');
     infantAnnihilator(buttonBox);
 
     let currentQuestion = 1; //currently hardset to 1, we'll make it index later via the first element in the answerArray
@@ -93,6 +100,8 @@ function handleQuestions() {
 //QUESTION LOADER
 //Loads in an *individual* question set by the question handler
 function loadtheQuestion(currentQuestion) {
+
+    console.log('...and loading fresh question from #: ' + currentQuestion);
     var currentQuestionArray = quizAsset.questions[currentQuestion];
     var currentAnswerArray = currentQuestionArray[3]; //answers are always the third element in the array
     
@@ -103,14 +112,15 @@ function loadtheQuestion(currentQuestion) {
     
     // buttonLoader(currentQuestionArray, currentAnswerArray);
     for (let i=1; i < currentQuestionArray[3].length; i++) {
+        console.log('Made button: ' + i);
         makeButton(i, currentAnswerArray[0], currentAnswerArray[i]); //the 0th element of the answerArray tells which index of the array is the correct answer
     }
 
     buttonEventLoader();
 }
 
-//BUTTON
-//Iteratively creates buttons and appends them to the .buttonBox based on quiz params
+//BUTTON GENERATOR
+//Iteratively creates buttons and appends them to the .buttonBox based on quiz params. Now also appends each button with it's own EventListener
 function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
     
     let freshBtn = document.createElement('input');
@@ -142,6 +152,7 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
 //INFANT ANNIHILATOR
 //Removes all children from a node, src'd from here: https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
 function infantAnnihilator(parent) {
+    
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
