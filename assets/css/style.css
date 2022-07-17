@@ -20,7 +20,8 @@
 ==================== */
 body {
     background-color: var(--main-bg-clr);
-    /* background-image: url('../images/MarbleBckgrnd.png'); */
+    background-image: url('../images/MarbleBckgrnd.png');
+    background-position: center;
     font-family: var(--mainFont);
 
     display: grid;
@@ -183,11 +184,6 @@ a.nostyle:visited {
     margin: 0 2rem 0 2rem;
 }
 
-/* #answerBox {
-    display: flex;
-    flex-direction: column;
-} */
-
 #buttonBox {
     display: grid;
     grid-template-columns: 10fr 90fr;
@@ -200,13 +196,18 @@ a.nostyle:visited {
    ID: HIGHSCORE PAGE
 ==================== */
 
-#highscoreBox {
-    display: grid;
-    grid-template-columns: 10fr 90fr;
-    grid-auto-rows: 2rem;
-    gap: .8rem;
+#entryDiv {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
 }
+
+.entryDivChild {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+    
 
 
 /* ====================

@@ -7,6 +7,6 @@ export const tstEndgame = {
 
     questions: [
         ['DEBUG'],
-        ['END', "Submit Highscore?", "<input id='HSNAME' placeholder='Enter a unique name'>", [1, 'Yes', 'No']],
+        ['END', "Submit Highscore?", "<input id='HSNAME' placeholder='Your Name Here!'>", [1, 'Yes', 'No']],
     ]
 };

@@ -27,36 +27,9 @@ var scoreField = document.getElementById("scoreField");
 var questionBox = document.getElementById("questionBox");
 var questionNumber = document.getElementById("questionNumber");
 var questionText = document.getElementById("questionText");
-var answerBox = document.getElementById("answerBox");
-var buttonBox = document.getElementById("buttonBox");
+// var answerBox = document.getElementById("answerBox"); //Deprecated, use buttonBox instead
+const buttonBox = document.getElementById("buttonBox");
 
-//Access the generated buttons made via makeButton()
-//Added if-statements so number of buttons can be determined in the tstDEBUG.questions array (up to six! I could do more but that's too extra)
-function buttonEventLoader() {
-    console.log('Button# variables instanced and attached to their HTML element');
-    if (document.getElementById('answer1')) {
-        var button1 = document.getElementById('answer1');
-    }
-    if (document.getElementById('answer2')) {
-        var button2 = document.getElementById('answer2');
-    }
-    if (document.getElementById('answer3')) {
-        var button3 = document.getElementById('answer3');
-    }
-    if (document.getElementById('answer4')) {
-        var button4 = document.getElementById('answer4');
-    }
-    if (document.getElementById('answer5')) {
-        var button5 = document.getElementById('answer5');
-    }
-    if (document.getElementById('answer6')) {
-        var button6 = document.getElementById('answer6');
-    }
-    //Also loads in the input box for the Highscore page
-    if (document.getElementById('HSNAME')) {
-        var HSNAME = document.getElementById('HSNAME');
-    }
-}
 
 // ====================
 //   INITIALIZATIONS
@@ -69,7 +42,7 @@ var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
 
 var scoreIndex = 0;
-var scoreObjArray = [];
+var scoreObjArray = [['0_0',"_User Names:_", '0_0',"_High Scores:_"]];
 
 var theScore = 0;
 var workingTimeAllowance;
@@ -129,9 +102,7 @@ function loadtheQuestion(questionIndex) {
     //MajorSect: If no more questions, launches the ENDER quiz for highscore submission
     if (questionIndex > lastQuestion) { 
         timerStop();
-        timerUI.style.visibility = "hidden";
-        quizAsset = tstEndgameFile.tstEndgame;
-        loadQuiz(quizAsset);
+        gameEnder();
     } else {
         console.log('...and loading fresh question from #: ' + questionIndex);
         var currentQuestionArray = quizAsset.questions[questionIndex];
@@ -147,8 +118,6 @@ function loadtheQuestion(questionIndex) {
             console.log('Made button: ' + i);
             makeButton(i, currentAnswerArray[0], currentAnswerArray[i]); //the 0th element of the answerArray tells which index of the array is the correct answer
         }
-
-        buttonEventLoader();
     }
 }
 
@@ -162,82 +131,106 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
     freshBtn.value = '#'+currentAnswerIndex;
     freshBtn.id = 'answer'+currentAnswerIndex;
 
-    if (quizAsset.quizID == "LOADER") {
-
-            //freshBtn.dataset.state = currentAnswerIndex;  //Thus, every mainScreen button has a dataset containing the psuedofile path to the file it ought to open
-
+    
+    if (currentAnswerIndex == correctAnswerIndex) {
+        freshBtn.dataset.state = 'correct';
     } else {
-        if (currentAnswerIndex == correctAnswerIndex) {
-            freshBtn.dataset.state = 'correct';
-        } else {
-            freshBtn.dataset.state = 'wrong';
-        }
-    } 
-
-    if (quizAsset.quizID == "LOADER") {
-        freshBtn.addEventListener('click', function() {
-            quizAsset = tstCoding123File.tstCoding123;
-            loadQuiz(quizAsset);
-    });
-    } else if (quizAsset.quizID == "MOVEON") {
-        freshBtn.addEventListener('click', function() {
-
-            if (freshBtn.dataset.state == 'correct') {
-                    console.log('Goodjob');
-                    increaseScore();
-                    letsmoveOn();
-            } else {
-                console.log('How embarrassing...');
-                workingTimeAllowance--;
-                timerUI.innerHTML = workingTimeAllowance;
-                letsmoveOn();
-            }
-    });
-    } else if (quizAsset.quizID == "ENDER") {
-        freshBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // var scoreID_Bad = new Date();
-            // var scoreID_Good = scoreID_Bad.getDay() + ":" + scoreID_Bad.getHours() + ":" + scoreID_Bad.getMinutes() + ":" + scoreID_Bad.getSeconds();
-            var scoreToAdd = {
-                User_Name: HSNAME.value,
-                High_Score: theScore,
-            };
-
-            scoreObjArray.push(scoreToAdd);
-            if (freshBtn.dataset.state == 'correct') {
-
-                //Saves their score in local storage
-                localStorage.setItem('scoreObjArray', JSON.stringify(scoreObjArray));
-                
-                yourScoreBox.style.visibility = "hidden";
-                theScore = 0;
-                // scoreIndex++;
-                quizAsset = tstMainpageFile.tstMainpage;
-                loadQuiz(quizAsset);
-        } else {
-            quizAsset = tstMainpageFile.tstMainpage;
-            loadQuiz(quizAsset);
-            yourScoreBox.style.visibility = "hidden";
-            theScore = 0;
-        }
-
-    });
+        freshBtn.dataset.state = 'wrong';
     }
-
+    
     let freshLabel = document.createElement('label');
     freshLabel.innerHTML = currentAnswerText;
 
     return buttonBox.appendChild(freshBtn) + buttonBox.appendChild(freshLabel);
 }
 
+//ANSWER BUTTON EVENT HANDLING
+//An event handler on the buttonBox delegates events to its children answer buttons
+buttonBox.addEventListener('click', function(e) {
+    // e.preventDefault();
+    const datButton = e.target;
+    if (datButton.type == "button") {
+
+        if (quizAsset.quizID == "LOADER") {
+            quizAsset = tstCoding123File.tstCoding123;
+            loadQuiz(quizAsset);
+        } 
+        
+        else if (quizAsset.quizID == "MOVEON") {
+    
+            if (datButton.dataset.state == 'correct') {
+                console.log('Goodjob');
+                increaseScore();
+                letsmoveOn();
+            } else {
+                console.log('How embarrassing...');
+                workingTimeAllowance--;
+                timerUI.innerHTML = workingTimeAllowance;
+                letsmoveOn();
+            }
+        }
+
+        else if (quizAsset.quizID == "ENDER") {
+
+            if (document.getElementById('HSNAME')) {
+                var HSNAME = document.getElementById('HSNAME');
+            }
+
+            if (datButton.dataset.state == 'correct' && HSNAME.value) {
+
+                var scoreToAdd = {
+                    User_Name: ("_"+HSNAME.value+"_"),
+                    High_Score: ("_"+theScore+"_"),
+                };
+        
+                scoreObjArray.push(scoreToAdd);
+
+                //Saves their score in local storage
+                localStorage.setItem('scoreObjArray', JSON.stringify(scoreObjArray));
+                
+                resettoMain();
+                
+            } else if (datButton.dataset.state == 'correct' && !HSNAME.value) {
+
+                alert('Please enter your name'); //Makes sure the user entered their name.
+
+            } else {
+                resettoMain();
+            }
+        }
+    }
+});
+
+
+//RESET TO MAINPAGE
+//Resets Quiz Machine back to the Mainpage, along with....
+function resettoMain() {
+    theScore = 0;                                   //...making sure the score is reset to zero
+    yourScoreBox.style.visibility = "hidden";       //...making sure the score gets hidden
+    quizAsset = tstMainpageFile.tstMainpage;        //...setting the quiz asset to the mainpage data
+    loadQuiz(quizAsset);                            //...running the quiz loader 
+}
+
+//END THE GAME 
+//or quiz, whatever, the function hides the timer and takes the player to a page for submitting highscores
+function gameEnder() {
+    timerUI.style.visibility = "hidden";
+    quizAsset = tstEndgameFile.tstEndgame;
+    loadQuiz(quizAsset);
+}
+
 //INFANT ANNIHILATOR
 //Removes all children from a node, src'd from here: https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
 function infantAnnihilator(parent) {
-
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+}
+
+//INCREASE YOUR SCORE
+function increaseScore() {
+    theScore++;
+    scoreField.textContent = theScore;
 }
 
 //LETS MOVE ON
@@ -255,9 +248,9 @@ function keydownAction(e) {
         loadQuiz(quizAsset);
     }
     if (e.altKey && e.key == 'm') {     //Jump back to Mainpage
-        console.log('Back to Mainpage');
-        quizAsset = tstMainpageFile.tstMainpage;
-        loadQuiz(quizAsset);
+        console.log('Quit to Mainpage')
+        timerUI.style.visibility = "hidden";
+        resettoMain();
     }
     if (e.altKey && e.key == 'p') {     //Kill the timer
         console.log('Stop the timer');
@@ -279,7 +272,6 @@ function timerGo() {
         timerUI.style.visibility = "hidden";
         quizAsset = tstEndgameFile.tstEndgame;
         loadQuiz(quizAsset);
-        clearInterval(countdown);
     }
 }
 function timerStop() {
@@ -287,10 +279,5 @@ function timerStop() {
     clearInterval(countdown);
 }
 
-//INCREASE YOUR SCORE
-function increaseScore() {
-    theScore++;
-    scoreField.textContent = theScore;
-}
 
 
