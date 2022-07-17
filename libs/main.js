@@ -27,8 +27,10 @@ var scoreField = document.getElementById("scoreField");
 var questionBox = document.getElementById("questionBox");
 var questionNumber = document.getElementById("questionNumber");
 var questionText = document.getElementById("questionText");
-// var answerBox = document.getElementById("answerBox"); //Deprecated, use buttonBox instead
 const buttonBox = document.getElementById("buttonBox");
+
+const viewHS = document.getElementById('viewHS');
+const userUnique = document.getElementById('userUnique');
 
 
 // ====================
@@ -154,6 +156,8 @@ buttonBox.addEventListener('click', function(e) {
         if (quizAsset.quizID == "LOADER") {
             quizAsset = tstCoding123File.tstCoding123;
             loadQuiz(quizAsset);
+            viewHS.style.visibility = "hidden";
+            userUnique.style.visibility = "hidden";
         } 
         
         else if (quizAsset.quizID == "MOVEON") {
@@ -209,6 +213,8 @@ function resettoMain() {
     yourScoreBox.style.visibility = "hidden";       //...making sure the score gets hidden
     quizAsset = tstMainpageFile.tstMainpage;        //...setting the quiz asset to the mainpage data
     loadQuiz(quizAsset);                            //...running the quiz loader 
+    viewHS.style.visibility = "visible";            //...making the two purple buttons reappear
+    userUnique.style.visibility = "visible";
 }
 
 //END THE GAME 
