@@ -67,6 +67,10 @@ var quizAsset = tstMainpageFile.tstMainpage;
 var questionIndex;
 var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
+
+var scoreIndex = 0;
+var scoreObjArray = [];
+
 var theScore = 0;
 var workingTimeAllowance;
 window.onload = loadQuiz(quizAsset);
@@ -186,25 +190,29 @@ function makeButton(currentAnswerIndex, correctAnswerIndex, currentAnswerText) {
                 console.log('How embarrassing...');
                 workingTimeAllowance--;
                 timerUI.innerHTML = workingTimeAllowance;
+                letsmoveOn();
             }
     });
     } else if (quizAsset.quizID == "ENDER") {
         freshBtn.addEventListener('click', function(event) {
             event.preventDefault();
 
-            var scoreID_Bad = new Date();
-            var scoreID_Good = scoreID_Bad.getDay() + ":" + scoreID_Bad.getHours() + ":" + scoreID_Bad.getMinutes() + ":" + scoreID_Bad.getSeconds();
+            // var scoreID_Bad = new Date();
+            // var scoreID_Good = scoreID_Bad.getDay() + ":" + scoreID_Bad.getHours() + ":" + scoreID_Bad.getMinutes() + ":" + scoreID_Bad.getSeconds();
             var scoreToAdd = {
                 User_Name: HSNAME.value,
                 High_Score: theScore,
             };
+
+            scoreObjArray.push(scoreToAdd);
             if (freshBtn.dataset.state == 'correct') {
 
-                //Saves their score
-                localStorage.setItem(scoreID_Good, JSON.stringify(scoreToAdd));
+                //Saves their score in local storage
+                localStorage.setItem('scoreObjArray', JSON.stringify(scoreObjArray));
                 
                 yourScoreBox.style.visibility = "hidden";
                 theScore = 0;
+                // scoreIndex++;
                 quizAsset = tstMainpageFile.tstMainpage;
                 loadQuiz(quizAsset);
         } else {

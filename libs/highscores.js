@@ -1,11 +1,16 @@
 var highscoreBox = document.getElementById("highscoreBox");
 
-var uglyScores = window.localStorage;
+var uglyScores = localStorage.getItem(scoreObjArray);
 
 console.log(uglyScores);
-console.log(JSON.parse(uglyScores));
 
-highscoreBox.innerHTML = uglyScores.User_Name;
+// console.log(JSON.parse(uglyScores));
 
-// for (let i=0; i < window.localStorage.key.length, i++)
+// var simpleScore = localStorage.getItem('4:17:55:58');
+
+// for (let i=0, i < )
+
+// console.log(simpleScore);
+
+// highscoreBox.innerHTML = JSON.parse(uglyScores[2])
 
