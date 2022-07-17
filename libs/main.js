@@ -43,7 +43,6 @@ var questionIndex;
 var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
 
-var scoreIndex = 0;
 var scoreObjArray = [['0_0',"_User Names:_", '0_0',"_High Scores:_"]];
 
 var theScore = 0;

@@ -3,21 +3,38 @@ This is the README.md for the Challenge Four "Quiz API" for the UT Coding Bootca
 
 This is a from-scratch website that lets you take a timed quiz.
 
+## CODING 1 - 2 -3
+The only quiz available on Quiz Machine is 'Coding 1 - 2 - 3'
 
-I plan on the following options:
+You have 30 seconds to answer 10 questions.
 
-* I want to implement a modular design, utilizing object-orientated structure, that loads in and "builds" the quiz
-* Have a base "quiz" object that loads a "main screen" quiz by default with a single page and hidden timer. Each "answer" will instead be a different quiz in storage that can be loaded in.
+Answer carefuly, a wrong answer choice will lose you a second and you cannot go back!
 
+If you run out of time, the quiz is over. If you answer all the question, the quiz is over.
+
+Either way, you'll have the opportunity to submit your highscore at the end of the quiz!
+
+## DEBUG:
+
+These shortcuts are available:
+
+alt + p : stops the timer
+
+alt + m : returns to mainmenu
+
+atl + ~ : loads debug quiz
 
 ## HOW TO:
-TBD
+Click the button for Coding 1-2-3 to launch the quiz!
 
 ## VISIT:
-No link yet
+
+<a href="https://lawhornmatt.github.io/Ch4_TakeThisQuiz/" target="_blank">Click here</a> to launch Quiz Machine and take a quick coding challenge!
+
 
 ## SCREENSHOT:
-No screenshot yet
+
+<img src="./assets/images/quiz-machine-scrnsht.png" alt="Screenshot of Quiz Machine" width="550"/>
 
 ## CREDIT:
-Matthew Lawhorn, TBA
+Matthew Lawhorn, July 2022
