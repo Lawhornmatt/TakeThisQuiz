@@ -22,10 +22,14 @@ alt + p : stops the timer
 
 alt + m : returns to mainmenu
 
-atl + ~ : loads debug quiz
+atl + ~ : loads debug quiz (answers are all set to #1 for quick points)
 
 ## HOW TO:
 Click the button for Coding 1-2-3 to launch the quiz!
+
+Click the High Score button to see your scores.
+
+The 'Create Your Own Quiz' feature is currently removed. The button only takes you to an empty page.
 
 ## VISIT:
 

@@ -3,7 +3,7 @@ export const tstMainpage = {
     quizID: "LOADER",
     timeAllowance: null, //seconds
     timeSubtracted: null,
-    quizInfo: ('Welcome! Select a quiz to play'),
+    quizInfo: ('Welcome to Quiz Machine! Take a quiz or check out the highscores above.'),
 
     questions: [
         ['DEBUG'],
