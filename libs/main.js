@@ -43,7 +43,9 @@ var questionIndex;
 var lastQuestion;
 var countdown;  //The lynch pin to makeing this whole timer business work: A global variable to act on
 
-var scoreObjArray = [['0_0',"_User Names:_", '0_0',"_High Scores:_"]];
+var scoreObjArray = [];
+// '0_0',"_User Names:_", '0_0',"_High Scores:_"
+var oldScores = localStorage.getItem('scoreObjArray');
 
 var theScore = 0;
 var workingTimeAllowance;
@@ -185,6 +187,10 @@ buttonBox.addEventListener('click', function(e) {
                     User_Name: ("_"+HSNAME.value+"_"),
                     High_Score: ("_"+theScore+"_"),
                 };
+
+                if (oldScores != null) {    //Firstly, this takes the old scores and makes sure they remain in record. Secondly, if old scores pulled in data from am empty Local Storage, it's value will be null and the if-statement prevents it from being tacked on.
+                    scoreObjArray.push(oldScores);
+                }
         
                 scoreObjArray.push(scoreToAdd);
 

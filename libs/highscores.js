@@ -19,8 +19,7 @@ function makescoreBoxes() {
         var entryDiv = document.createElement('div');
         var nameDiv = document.createElement('div');
         var scoreDiv = document.createElement('div');
-        entryDiv.className = ('basicWBG');
-        entryDiv.id = ('entryDiv');
+        entryDiv.classList.add('basicWBG', 'entryDiv');
         nameDiv.className = ('entryDivChild');
         scoreDiv.className = ('entryDivChild');
 
