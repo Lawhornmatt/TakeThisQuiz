@@ -33,7 +33,7 @@ The 'Create Your Own Quiz' feature is currently removed. The button only takes y
 
 ## VISIT:
 
-<a href="https://lawhornmatt.github.io/Ch4_TakeThisQuiz/" target="_blank">Click here</a> to launch Quiz Machine and take a quick coding challenge!
+[Click here](https://lawhornmatt.github.io/TakeThisQuiz/) to launch Quiz Machine and take a quick coding challenge!
 
 
 ## SCREENSHOT:
